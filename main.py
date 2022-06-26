@@ -13,6 +13,7 @@ countries = []
 capitals = []
 task = 0
 a = True
+color = 'white'
 
 soup = BeautifulSoup(contents, 'html.parser')
 
@@ -64,10 +65,10 @@ def close():
 
 
 def start():
-    global a
+    global a, color
     if a:
         surface.fill((255, 255, 255))
-        render = font.render(f'Get start', 1, pygame.Color('black'))
+        render = font.render(f'Get start', 1, pygame.Color('black'), pygame.Color(color))
         render_rect = render.get_rect()
         render_rect.x, render_rect.y = 275, 350
         surface.blit(render, (275, 350))
@@ -77,9 +78,10 @@ def start():
                 if render_rect.collidepoint(pygame.mouse.get_pos()):
                     a = False
                     print('OK')
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if render_rect.collidepoint(pygame.mouse.get_pos()):
-                    render = font.render(f'Get start', 1, pygame.Color('black'), pygame.Color('gray'))
+            if render_rect.collidepoint(pygame.mouse.get_pos()):
+                color = '#DCDCDC'
+            else:
+                color = 'white'
             if event.type == pygame.QUIT:
                 exit()
     else:
